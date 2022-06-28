@@ -9,6 +9,4 @@ public abstract class BasePage {
     public BasePage () {
         this.driver = Browser.BROWSER.getDriver();
     }
-
-
 }

@@ -22,6 +22,7 @@ public abstract class AbstractElement {
         this.driver = Browser.BROWSER.getDriver();
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
+
     public WebElement findElement (){
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
         return driver.findElement(locator);

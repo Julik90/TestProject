@@ -9,6 +9,9 @@ public class AuthorizationPage extends BasePage {
     private By in = By.xpath("//button[@id='passp:sign-in']");
     private By passwd = By.xpath("//input[@name='passwd']");
 
+
+
+
 //    public void fillLogin(String login){
 //        getDriver().findElement(this.login).sendKeys(login);
 //    }
