@@ -26,10 +26,9 @@ public class ManagerCookie {
 
     public static boolean titleCheck (String name) {
         if (driver.manage().getCookieNamed(name)==null) {
-            return false
+            return false;
         }
-    }
 
 
-
-}
+        return false;
+    }}
