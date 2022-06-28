@@ -5,15 +5,29 @@ import org.openqa.selenium.WebDriver;
 import selenium.framework.browser.Browser;
 
 public class ManagerCookie {
-    private WebDriver driver = Browser.BROWSER.getDriver();
+    private static WebDriver driver = Browser.BROWSER.getDriver();
 
-    public void addCookie(String name, String value) {
+    public static void addCookie(String name, String value) {
         driver.manage().addCookie(new Cookie(name, value));
 
     }
 
-    public Cookie getCookieByName(String name){
+    public static Cookie getCookieByName(String name){
         return driver.manage().getCookieNamed(name);
+    }
+    public static int getAmountCookies () {
+        return driver.manage().getCookies().size();
+
+    }
+
+    public static void deleteCookie(String name) {
+        driver.manage().deleteCookieNamed(name);
+    }
+
+    public static boolean titleCheck (String name) {
+        if (driver.manage().getCookieNamed(name)==null) {
+            return false
+        }
     }
 
 

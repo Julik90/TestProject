@@ -15,7 +15,7 @@ public class Browser {
     }
 
     public void open(){
-        driver.get(config.getUrlWithBasicAuth());
+        driver.get(config.getApplicationUrl());
     }
 
     public void close(){
@@ -23,7 +23,7 @@ public class Browser {
 
     }
 
-    public void window(){
+    public void windowMax(){
         driver.manage().window().maximize();
 
     }

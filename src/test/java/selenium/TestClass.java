@@ -10,6 +10,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import selenium.framework.cookies.ManagerCookie;
 import selenium.project.pages.AuthorizationPage;
 import selenium.project.pages.BasePage;
 import selenium.project.pages.HomePage;
@@ -51,10 +52,23 @@ public class TestClass extends BaseTest {
     public void test2() {
         HomePage homePage = new HomePage();
         homePage.open();
-        Assert.assertEquals(homePage.getText(), "{\n" +
-                "  \"authenticated\": true, \n" +
-                "  \"user\": \"user\"\n" +
-                "}", "text does not match");
+//        Assert.assertEquals(homePage.getText(), "{\n" +
+//                "  \"authenticated\": true, \n" +
+//                "  \"user\": \"user\"\n" +
+//                "}", "text does not match");
+
+
+        ManagerCookie.addCookie("example_key_1", "example_value_1");
+        ManagerCookie.addCookie("example_key_2", "example_value_2");
+        ManagerCookie.addCookie("example_key_3", "example_value_3");
+
+        Assert.assertEquals(ManagerCookie.getAmountCookies(), 3, "amount cookies is not correct");
+
+        ManagerCookie.deleteCookie("example_key_1");
+        Assert.assertEquals(ManagerCookie.getAmountCookies(), 2, "amount cookies is not correct");
+
+
+
 
 
 

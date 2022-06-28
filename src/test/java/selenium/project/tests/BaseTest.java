@@ -9,7 +9,7 @@ public class BaseTest {
     private Browser browser = Browser.BROWSER;
     @BeforeMethod
     public void setUp() {
-        browser.window();
+        browser.windowMax();
 
     }
     @AfterMethod
