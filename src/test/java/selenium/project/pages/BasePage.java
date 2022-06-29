@@ -6,7 +6,12 @@ import selenium.framework.browser.Browser;
 public abstract class BasePage {
     private WebDriver driver;
 
-    public BasePage () {
+    public BasePage() {
         this.driver = Browser.BROWSER.getDriver();
+    }
+
+    public void switchIframe(String idIframe) {
+        this.driver.switchTo().frame(idIframe);
+
     }
 }

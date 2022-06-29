@@ -1,4 +1,4 @@
-package selenium;
+package selenium.project.tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
@@ -48,16 +48,20 @@ public class TestClass extends BaseTest {
 //    }
 
     @Test
-    public void test2() {
+    public void test2() throws InterruptedException {
         HomePage homePage = new HomePage();
         homePage.open();
-        Assert.assertEquals(homePage.getText(), "{\n" +
-                "  \"authenticated\": true, \n" +
-                "  \"user\": \"user\"\n" +
-                "}", "text does not match");
+//        Assert.assertEquals(homePage.getText(), "{\n" +
+//                "  \"authenticated\": true, \n" +
+//                "  \"user\": \"user\"\n" +
+//                "}", "text does not match");
+
+        Assert.assertEquals(homePage.getText(), "An iFrame containing the TinyMCE WYSIWYG Editor", "text does not match");
+        homePage.switchIframe();
+        homePage.clearText();
+        homePage.sendText("0123456789");
+        Thread.sleep(2000);
 
 
-
-
-
-    }}
+    }
+}

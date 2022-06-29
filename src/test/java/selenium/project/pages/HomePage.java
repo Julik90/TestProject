@@ -6,7 +6,9 @@ import selenium.framework.browser.elements.FormElement;
 
 public class HomePage extends BasePage {
 
-    private FormElement responseAuth = new FormElement("responseAuth", By.xpath("/html/body/pre"));
+    private FormElement title = new FormElement("title", By.xpath("//div/h3"));
+    private String idIframe = "mce_0_ifr";
+    private FormElement textIframe = new FormElement("textIframe", By.xpath("//body/p"));
 
 
     public void open() {
@@ -14,8 +16,22 @@ public class HomePage extends BasePage {
     }
 
     public String getText(){
-       return responseAuth.getText();
+       return title.getText();
     }
+
+    public void switchIframe() {
+        switchIframe(idIframe);
+
+    }
+
+     public void clearText(){
+        textIframe.clearText();
+
+     }
+
+     public void sendText(String text){
+        textIframe.sendText(text);
+     }
 }
 
 

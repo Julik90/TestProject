@@ -38,4 +38,14 @@ public abstract class AbstractElement {
     public String getText() {
         return findElement().getText();
     }
+
+    public void clearText(){
+        WebElement element = findElement();
+        element.clear();
+    }
+
+    public void sendText(String text){
+        WebElement element = findElement();
+        element.sendKeys(text);
+    }
 }
