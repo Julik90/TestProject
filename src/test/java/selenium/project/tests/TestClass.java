@@ -1,6 +1,10 @@
 package selenium.project.tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import jdk.nashorn.internal.ir.LabelNode;
+import kong.unirest.HttpResponse;
+import kong.unirest.JsonNode;
+import kong.unirest.Unirest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,10 +15,13 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import selenium.framework.alert.ManagerAlert;
+import selenium.framework.rest.RestManager;
+import selenium.project.model.MyPost;
 import selenium.project.pages.AuthorizationPage;
 import selenium.project.pages.BasePage;
 import selenium.project.pages.HomePage;
 import selenium.project.tests.BaseTest;
+import selenium.utils.JsonUtils;
 //import selenium.project.pages.MainPage;
 
 import java.util.List;
@@ -57,28 +64,69 @@ public class TestClass extends BaseTest {
 //        Thread.sleep(2000);
 //    }
 
-    @Test
-    public void test2() throws InterruptedException {
-        HomePage homePage = new HomePage();
-        homePage.open();
-        homePage.clickJSAlert();
-        Assert.assertEquals(ManagerAlert.getText(), "I am a JS Alert", "text does not match");
-        ManagerAlert.closeAlert();
-        Assert.assertEquals(homePage.getMessage(), "You successfully clicked an alert", "text did not appear");
-        homePage.clickJSConfirm();
-        Assert.assertEquals(ManagerAlert.getText(), "I am a JS Confirm", "text does not match");
-        ManagerAlert.closeAlert();
-        Assert.assertEquals(homePage.getMessage2(), "You clicked: Ok", "text did not appear");
-        homePage.clickJSprompt();
-        Assert.assertEquals(ManagerAlert.getText(), "I am a JS prompt", "text does not match");
-        ManagerAlert.closeAlert();
-        Assert.assertEquals(homePage.getMessage3(), "You entered: hello\n" +
-                "\n", "text did not appear");
+
+//    public void test2() throws InterruptedException {
+//        HomePage homePage = new HomePage();
+//        homePage.open();
+//        homePage.clickJSAlert();
+//        Assert.assertEquals(ManagerAlert.getText(), "I am a JS Alert", "text does not match");
+//        ManagerAlert.closeAlert();
+//        Assert.assertEquals(homePage.getMessage(), "You successfully clicked an alert", "text did not appear");
+//        homePage.clickJSConfirm();
+//        Assert.assertEquals(ManagerAlert.getText(), "I am a JS Confirm", "text does not match");
+//        ManagerAlert.closeAlert();
+//        Assert.assertEquals(homePage.getMessage2(), "You clicked: Ok", "text did not appear");
+//        homePage.clickJSprompt();
+//        Assert.assertEquals(ManagerAlert.getText(), "I am a JS prompt", "text does not match");
+//        ManagerAlert.closeAlert();
+//        Assert.assertEquals(homePage.getMessage3(), "You entered: hello\n" +
+//                "\n", "text did not appear");
+
+     @Test
+    public void test() {
+        HttpResponse<JsonNode> response = Unirest.get("https://jsonplaceholder.typicode.com/posts/88").asJson();
+        System.out.println(response.getBody().toPrettyString());
+
+//        HttpResponse<JsonNode> responseId88 = RestManager.getPostById(88);
+//        Assert.assertNotNull(responseId88, "responseId99 is null");
+//        Assert.assertEquals(responseId88.getStatus(), 200);
+//        Assert.assertEquals(responseId88.getBody().toPrettyString(), "{\n" +
+//                "  \"userId\": 9,\n" +
+//                "  \"id\": 88,\n" +
+//                "  \"title\": \"sapiente omnis fugit eos\",\n" +
+//                "  \"body\": \"consequatur omnis est praesentium\\nducimus non iste\\nneque hic deserunt\\nvoluptatibus veniam cum et rerum sed\"\n" +
+//                "}");
 
 
+//         HttpResponse<JsonNode> responseId1 = RestManager.getUserById(1);
+//         Assert.assertNotNull(responseId1, "responseId1 is null");
+//         Assert.assertEquals(responseId1.getStatus(), 200);
+//         Assert.assertEquals(responseId1.getBody().toPrettyString(), "{\n" +
+//                 "  \"id\": 1,\n" +
+//                 "  \"name\": \"Leanne Graham\",\n" +
+//                 "  \"username\": \"Bret\",\n" +
+//                 "  \"email\": \"Sincere@april.biz\",\n" +
+//                 "  \"address\": {\n" +
+//                 "    \"street\": \"Kulas Light\",\n" +
+//                 "    \"suite\": \"Apt. 556\",\n" +
+//                 "    \"city\": \"Gwenborough\",\n" +
+//                 "    \"zipcode\": \"92998-3874\",\n" +
+//                 "    \"geo\": {\n" +
+//                 "      \"lat\": \"-37.3159\",\n" +
+//                 "      \"lng\": \"81.1496\"\n" +
+//                 "    }\n" +
+//                 "  },\n" +
+//                 "  \"phone\": \"1-770-736-8031 x56442\",\n" +
+//                 "  \"website\": \"hildegard.org\",\n" +
+//                 "  \"company\": {\n" +
+//                 "    \"name\": \"Romaguera-Crona\",\n" +
+//                 "    \"catchPhrase\": \"Multi-layered client-server neural-net\",\n" +
+//                 "    \"bs\": \"harness real-time e-markets\"\n" +
+//                 "  }\n" +
+//                 "}");
 
 
-
+         MyPost actualPost = JsonUtils.createMyPostByJson(responseId88.getBody().toString());
 
 
 
