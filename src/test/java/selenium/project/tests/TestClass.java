@@ -87,8 +87,8 @@ public class TestClass extends BaseTest {
         HttpResponse<JsonNode> response = Unirest.get("https://jsonplaceholder.typicode.com/posts/88").asJson();
         System.out.println(response.getBody().toPrettyString());
 
-//        HttpResponse<JsonNode> responseId88 = RestManager.getPostById(88);
-//        Assert.assertNotNull(responseId88, "responseId99 is null");
+        HttpResponse<JsonNode> responseId88 = RestManager.getPostById(88);
+        Assert.assertNotNull(responseId88, "responseId99 is null");
 //        Assert.assertEquals(responseId88.getStatus(), 200);
 //        Assert.assertEquals(responseId88.getBody().toPrettyString(), "{\n" +
 //                "  \"userId\": 9,\n" +
@@ -127,6 +127,7 @@ public class TestClass extends BaseTest {
 
 
          MyPost actualPost = JsonUtils.createMyPostByJson(responseId88.getBody().toString());
+         MyPost expectedPost = JsonUtils.createMyPostByJson("")
 
 
 
