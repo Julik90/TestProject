@@ -7,6 +7,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import selenium.framework.rest.RestManager;
 import selenium.project.model.MyPost;
+import selenium.project.model.MyUser;
+import selenium.utils.Fixtures;
 import selenium.utils.JsonUtils;
 
 //import selenium.project.pages.MainPage;
@@ -66,20 +68,24 @@ public class TestClass extends BaseTest {
 //        Assert.assertEquals(homePage.getMessage3(), "You entered: hello\n" +
 //                "\n", "text did not appear");
 
-     @Test
-    public void test() {
+    @Test
+    public void testPostId88() {
         HttpResponse<JsonNode> response = Unirest.get("https://jsonplaceholder.typicode.com/posts/88").asJson();
         System.out.println(response.getBody().toPrettyString());
 
         HttpResponse<JsonNode> responseId88 = RestManager.getPostById(88);
-        Assert.assertNotNull(responseId88, "responseId99 is null");
-//        Assert.assertEquals(responseId88.getStatus(), 200);
+        Assert.assertNotNull(responseId88, "responseId88 is null");
+        Assert.assertEquals(responseId88.getStatus(), 200);
 //        Assert.assertEquals(responseId88.getBody().toPrettyString(), "{\n" +
 //                "  \"userId\": 9,\n" +
 //                "  \"id\": 88,\n" +
 //                "  \"title\": \"sapiente omnis fugit eos\",\n" +
 //                "  \"body\": \"consequatur omnis est praesentium\\nducimus non iste\\nneque hic deserunt\\nvoluptatibus veniam cum et rerum sed\"\n" +
 //                "}");
+
+        MyPost expected = JsonUtils.createObject(Fixtures.POST_ID_88, MyPost.class);
+        MyPost actual = JsonUtils.createMyPostByJson(responseId88.getBody().toString());
+        Assert.assertEquals(actual, expected, "");
 
 
 //         HttpResponse<JsonNode> responseId1 = RestManager.getUserById(1);
@@ -110,9 +116,35 @@ public class TestClass extends BaseTest {
 //                 "}");
 
 
-         MyPost actualPost = JsonUtils.createMyPostByJson(responseId88.getBody().toString());
-         MyPost expectedPost = JsonUtils.createMyPostByJson("");
+//         MyPost actualPost = JsonUtils.createMyPostByJson(responseId88.getBody().toString());
+//         MyPost expectedPost = JsonUtils.createMyPostByJson("");
+    }
 
+    public void testPost101() {
+
+        HttpResponse<JsonNode> responseId101 = RestManager.getPostById(101);
+        Assert.assertNotNull(responseId101, "responseId101 is null");
+        Assert.assertEquals(responseId101.getStatus(), 404);
+        Assert.assertEquals(responseId101.getBody().toPrettyString(), "{}");
+
+    }
+
+    @Test
+    public void testUserAll() {
+        HttpResponse<JsonNode> responseIdAll = RestManager.getUserAll();
+        Assert.assertNotNull(responseIdAll, "responseIdAll is null");
+        Assert.assertEquals(responseIdAll.getStatus(), 200);
+
+
+        MyUser expected = JsonUtils.createObject(Fixtures.USER_ID_5, MyUser.class);
+        String user5Text = responseIdAll.getBody().getArray().get(4).toString();
+        MyUser actual = JsonUtils.createMyUserByJson(user5Text);
+        Assert.assertEquals(actual, expected, "");
+
+        HttpResponse<JsonNode> responseId5 = RestManager.getUserById(5);
+        MyUser expected5 = JsonUtils.createObject(Fixtures.USER_ID_5, MyUser.class);
+        MyUser actual5 = JsonUtils.createMyUserByJson(responseId5.getBody().toString());
+        Assert.assertEquals(actual5, expected5, "");
 
 
     }

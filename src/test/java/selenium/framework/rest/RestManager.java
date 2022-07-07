@@ -23,6 +23,11 @@ public class RestManager {
 
     }
 
+    public static HttpResponse<JsonNode> getUserAll () {
+        HttpResponse<JsonNode> response = Unirest.get(METHOD_USERS).asJson();
+        return response;
+    }
+
 
 
 }
