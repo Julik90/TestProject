@@ -1,31 +1,15 @@
 package selenium.project.tests;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import jdk.nashorn.internal.ir.LabelNode;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import selenium.framework.alert.ManagerAlert;
 import selenium.framework.rest.RestManager;
 import selenium.project.model.MyPost;
-import selenium.project.pages.AuthorizationPage;
-import selenium.project.pages.BasePage;
-import selenium.project.pages.HomePage;
-import selenium.project.tests.BaseTest;
 import selenium.utils.JsonUtils;
-//import selenium.project.pages.MainPage;
 
-import java.util.List;
-import java.util.concurrent.TimeUnit;
+//import selenium.project.pages.MainPage;
 
 public class TestClass extends BaseTest {
 //    private WebDriver driver;
@@ -127,7 +111,7 @@ public class TestClass extends BaseTest {
 
 
          MyPost actualPost = JsonUtils.createMyPostByJson(responseId88.getBody().toString());
-         MyPost expectedPost = JsonUtils.createMyPostByJson("")
+         MyPost expectedPost = JsonUtils.createMyPostByJson("");
 
 
 
