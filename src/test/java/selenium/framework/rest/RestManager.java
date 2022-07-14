@@ -28,6 +28,10 @@ public class RestManager {
         return response;
     }
 
+    public static HttpResponse<JsonNode> getPostAll () {
+        HttpResponse<JsonNode> response = Unirest.get(METHOD_POSTS).asJson();
+        return response;
+    }
 
 
 }

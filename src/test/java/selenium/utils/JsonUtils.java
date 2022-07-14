@@ -1,6 +1,7 @@
 package selenium.utils;
 
 import com.google.gson.Gson;
+import kong.unirest.json.JSONArray;
 import org.apache.commons.io.FileUtils;
 import selenium.project.model.MyPost;
 import selenium.project.model.MyUser;
@@ -8,6 +9,8 @@ import selenium.project.model.MyUser;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JsonUtils {
 
@@ -17,6 +20,16 @@ public class JsonUtils {
         MyPost myPost = gson.fromJson(text, MyPost.class);
         return myPost;
 
+    }
+
+    public static List<MyPost> getListMyPosts(JSONArray array){
+        List<MyPost> result = new ArrayList<>();
+        for (int i = 0; i <array.length(); i++) {
+            MyPost myPost = createMyPostByJson(array.get(i).toString());
+            result.add(myPost);
+
+        }
+        return result;
     }
 
     public static MyUser createMyUserByJson(String text) {

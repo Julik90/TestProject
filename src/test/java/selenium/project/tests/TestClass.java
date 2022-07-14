@@ -5,11 +5,15 @@ import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import selenium.framework.rest.RestManager;
+import selenium.project.model.ListMyPost;
 import selenium.project.model.MyPost;
 import selenium.project.model.MyUser;
 import selenium.utils.Fixtures;
 import selenium.utils.JsonUtils;
+
+import java.util.List;
 
 //import selenium.project.pages.MainPage;
 
@@ -129,7 +133,7 @@ public class TestClass extends BaseTest {
 
     }
 
-    @Test
+
     public void testUserAll() {
         HttpResponse<JsonNode> responseIdAll = RestManager.getUserAll();
         Assert.assertNotNull(responseIdAll, "responseIdAll is null");
@@ -147,5 +151,36 @@ public class TestClass extends BaseTest {
         Assert.assertEquals(actual5, expected5, "");
 
 
+
+
+
     }
-}
+     @Test
+    public void testPostAll() {
+        HttpResponse<JsonNode> responseIdAll = RestManager.getPostAll();
+        Assert.assertNotNull(responseIdAll, "responseIdAll is null");
+        Assert.assertEquals(responseIdAll.getStatus(), 200);
+        List<MyPost> listMyPosts = JsonUtils.getListMyPosts(responseIdAll.getBody().getArray());
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertAll();
+        for (int i = 0; i < listMyPosts.size()-1; i++) {
+           if (listMyPosts.get(i).getId()>=listMyPosts.get(i+1).getId()) {
+               softAssert.fail("post with: " + listMyPosts.get(i).getId() + "<" + listMyPosts.get(i+1).getId());
+
+            }
+
+        }
+
+    }
+    @Test
+    public void checkPostAll() {
+        HttpResponse<JsonNode> responseIdAll = RestManager.getPostAll();
+        Assert.assertNotNull(responseIdAll, "responseIdAll is null");
+        Assert.assertEquals(responseIdAll.getStatus(), 200);
+        ListMyPost expectedAllPosts = JsonUtils.createObject(Fixtures.ALL_POSTS, ListMyPost.class);
+        ListMyPost actualAllPosts = JsonUtils.getListMyPosts(allP)
+
+
+
+}}
