@@ -3,6 +3,7 @@ package selenium.framework.rest;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
+import selenium.project.model.MyPost;
 
 public class RestManager {
 
@@ -32,6 +33,16 @@ public class RestManager {
         HttpResponse<JsonNode> response = Unirest.get(METHOD_POSTS).asJson();
         return response;
     }
+
+    public static HttpResponse<JsonNode> sendMyPost(MyPost myPost) {
+        return Unirest.post(METHOD_POSTS)
+                .field("id", myPost.getId())
+                .field("body", myPost.getBody())
+                .field("title", myPost.getTitle())
+                .field("userId", String.valueOf(myPost.getUserId())).asJson();
+    }
+
+
 
 
 }

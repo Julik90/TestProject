@@ -151,11 +151,8 @@ public class TestClass extends BaseTest {
         Assert.assertEquals(actual5, expected5, "");
 
 
-
-
-
     }
-     @Test
+
     public void testPostAll() {
         HttpResponse<JsonNode> responseIdAll = RestManager.getPostAll();
         Assert.assertNotNull(responseIdAll, "responseIdAll is null");
@@ -164,23 +161,40 @@ public class TestClass extends BaseTest {
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertAll();
-        for (int i = 0; i < listMyPosts.size()-1; i++) {
-           if (listMyPosts.get(i).getId()>=listMyPosts.get(i+1).getId()) {
-               softAssert.fail("post with: " + listMyPosts.get(i).getId() + "<" + listMyPosts.get(i+1).getId());
+        for (int i = 0; i < listMyPosts.size() - 1; i++) {
+            if (listMyPosts.get(i).getId() >= listMyPosts.get(i + 1).getId()) {
+                softAssert.fail("post with: " + listMyPosts.get(i).getId() + "<" + listMyPosts.get(i + 1).getId());
 
             }
 
         }
 
     }
+
     @Test
     public void checkPostAll() {
         HttpResponse<JsonNode> responseIdAll = RestManager.getPostAll();
         Assert.assertNotNull(responseIdAll, "responseIdAll is null");
         Assert.assertEquals(responseIdAll.getStatus(), 200);
         ListMyPost expectedAllPosts = JsonUtils.createObject(Fixtures.ALL_POSTS, ListMyPost.class);
-        ListMyPost actualAllPosts = JsonUtils.getListMyPosts(allP)
+        List<MyPost> actualAllPosts = JsonUtils.getListMyPosts(responseIdAll.getBody().getArray());
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(actualAllPosts.size(), expectedAllPosts.getMyPostList().size(), "");
+        for (int i = 0; i < expectedAllPosts.getMyPostList().size(); i++) {
+
+        }
+
+    }
+
+    @Test
+    public void sendMyPost(){
+        MyPost expected = JsonUtils.createObject(Fixtures.POST_ID_88, MyPost.class);
+        HttpResponse<JsonNode> sendPostAll = RestManager.getPostAll();
+        Assert.assertNotNull(sendPostAll, "responseIdAll is null");
+        Assert.assertEquals(sendPostAll.getStatus(), 201);
+
+    }
 
 
-
-}}
+}
