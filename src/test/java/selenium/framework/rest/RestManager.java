@@ -42,6 +42,11 @@ public class RestManager {
                 .field("userId", String.valueOf(myPost.getUserId())).asJson();
     }
 
+    public static HttpResponse<JsonNode> sendMyPostByText(String object) {
+        return Unirest.post(METHOD_POSTS).body(object).asJson();
+
+    }
+
 
 
 

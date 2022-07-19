@@ -171,7 +171,7 @@ public class TestClass extends BaseTest {
 
     }
 
-    @Test
+
     public void checkPostAll() {
         HttpResponse<JsonNode> responseIdAll = RestManager.getPostAll();
         Assert.assertNotNull(responseIdAll, "responseIdAll is null");
@@ -187,13 +187,34 @@ public class TestClass extends BaseTest {
 
     }
 
-    @Test
+
     public void sendMyPost(){
         MyPost expected = JsonUtils.createObject(Fixtures.POST_ID_88, MyPost.class);
-        HttpResponse<JsonNode> sendPostAll = RestManager.getPostAll();
+        HttpResponse<JsonNode> sendPostAll = RestManager.sendMyPost(expected);
         Assert.assertNotNull(sendPostAll, "responseIdAll is null");
         Assert.assertEquals(sendPostAll.getStatus(), 201);
 
+    }
+
+
+    @Test
+    public void sendMyPostByText(){
+        MyPost emptyPost = new MyPost();
+        String myPostText = JsonUtils.getStringFromObject(emptyPost);
+        HttpResponse<JsonNode> response = RestManager.sendMyPostByText(myPostText);
+        Assert.assertNotNull(response, "responseIdAll is null");
+        Assert.assertEquals(response.getStatus(), 201);
+        String actualText = response.getBody().toString();
+        MyPost actualMyPost = JsonUtils.createMyPostByJson(actualText);
+        Assert.assertNotEquals(actualMyPost.getId(),0);
+
+
+    }
+
+    public void some() {
+        ListMyPost listMyPost = JsonUtils.createObject(Fixtures.ALL_POSTS, ListMyPost.class);
+        List<MyPost> postList = listMyPost.getMyPostList();
+        String stringFromObject = JsonUtils.getStringFromObject()
     }
 
 

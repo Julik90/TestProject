@@ -46,4 +46,8 @@ public class JsonUtils {
         }
         return gson.fromJson(jsonText, clazz);
     }
+
+    public static String getStringFromObject (Object object) {
+        return gson.toJson(object);
+    }
 }
